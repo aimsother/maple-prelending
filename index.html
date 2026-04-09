@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Maple Ledger — Business &amp; Sport</title>
+  <link rel="icon" href="logo.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1a1e;
+      --paper: #f7f4ee;
+      --paper-dark: #ebe6dc;
+      --accent: #b3190e;
+      --accent-dark: #8c120a;
+      --muted: #5c5a56;
+      --rule: #c9c3b8;
+      --max: 720px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: linear-gradient(165deg, #e8e2d8 0%, var(--paper) 18%, var(--paper) 100%);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 3rem;
+    }
+
+    /* Masthead */
+    .masthead {
+      text-align: center;
+      border-bottom: 3px double var(--ink);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .masthead__flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .masthead__flag span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .masthead__logo {
+      display: block;
+      margin: 0 auto 0.65rem;
+      max-height: clamp(48px, 12vw, 76px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .masthead__title {
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: clamp(1.85rem, 6vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .masthead__tagline {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--muted);
+      margin: 0.35rem 0 0;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem 1rem;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--rule);
+      padding: 0.5rem 0 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .meta-bar strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* Article */
+    article {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .kicker {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.35rem;
+    }
+
+    h1 {
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: clamp(1.45rem, 4.2vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0 0 0.75rem;
+      letter-spacing: -0.015em;
+    }
+
+    .deck {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0 0 1.25rem;
+      line-height: 1.5;
+    }
+
+    .byline {
+      font-size: 0.9rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 0.85rem;
+      margin-bottom: 1.5rem;
+      color: var(--muted);
+    }
+
+    .byline a,
+    .text-link {
+      color: var(--accent-dark);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      cursor: pointer;
+    }
+
+    .text-link:hover,
+    .byline a:hover {
+      color: var(--accent);
+    }
+
+    /* Contact modal */
+    .contact-modal {
+      border: 1px solid var(--rule);
+      padding: 0;
+      max-width: 420px;
+      width: calc(100vw - 2rem);
+      font-family: inherit;
+      background: var(--paper);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      color: var(--ink);
+    }
+
+    .contact-modal::backdrop {
+      background: rgba(26, 26, 30, 0.55);
+    }
+
+    .contact-modal__inner {
+      padding: 1.35rem 1.35rem 1.5rem;
+      position: relative;
+    }
+
+    .contact-modal__title {
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: 1.2rem;
+      margin: 0 0 0.35rem;
+      padding-right: 2.5rem;
+    }
+
+    .contact-modal__lede {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0 0 1.1rem;
+      line-height: 1.45;
+    }
+
+    .contact-modal__close {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1px solid var(--rule);
+      background: #fff;
+      color: var(--ink);
+      font-size: 1.35rem;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .contact-modal__close:hover {
+      background: var(--paper-dark);
+    }
+
+    .contact-form label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .contact-form input {
+      width: 100%;
+      margin-bottom: 0.85rem;
+      padding: 0.55rem 0.65rem;
+      font: inherit;
+      font-size: 1rem;
+      border: 1px solid var(--rule);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 2px;
+    }
+
+    .contact-form input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .contact-form__actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.25rem;
+    }
+
+    .contact-form button[type="submit"] {
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.55rem 1.15rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .contact-form button[type="submit"]:hover {
+      background: var(--accent-dark);
+    }
+
+    .contact-form button[type="button"] {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.55rem 1rem;
+      background: transparent;
+      border: 1px solid var(--rule);
+      cursor: pointer;
+      border-radius: 2px;
+    }
+
+    .contact-form button[type="button"]:hover {
+      background: var(--paper-dark);
+    }
+
+    .contact-form button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .contact-form__status {
+      font-size: 0.88rem;
+      margin: 0 0 0.85rem;
+      padding: 0.5rem 0.6rem;
+      border-radius: 2px;
+      display: none;
+    }
+
+    .contact-form__status.is-visible {
+      display: block;
+    }
+
+    .contact-form__status--error {
+      background: rgba(179, 25, 14, 0.12);
+      border: 1px solid rgba(179, 25, 14, 0.35);
+      color: var(--accent-dark);
+    }
+
+    .contact-form__status--success {
+      background: rgba(40, 100, 60, 0.12);
+      border: 1px solid rgba(40, 100, 60, 0.35);
+      color: #1e4d2b;
+    }
+
+    .figure {
+      margin: 0 0 1.25rem;
+      background: var(--paper-dark);
+      padding: 0.5rem;
+      border: 1px solid var(--rule);
+    }
+
+    .figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      filter: contrast(1.02) saturate(0.95);
+    }
+
+    .figure figcaption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      padding: 0.5rem 0.25rem 0;
+      line-height: 1.4;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: 3.25rem;
+      line-height: 0.85;
+      padding-right: 0.45rem;
+      padding-top: 0.1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    p {
+      margin: 0 0 1rem;
+    }
+
+    .pullquote {
+      float: right;
+      width: min(100%, 280px);
+      margin: 0 0 1rem 1.25rem;
+      padding: 1rem 1rem 1rem 1.1rem;
+      border-left: 4px solid var(--ink);
+      background: rgba(179, 25, 14, 0.06);
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .pullquote cite {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      font-style: normal;
+      color: var(--muted);
+    }
+
+    .fact-box {
+      clear: both;
+      margin: 1.5rem 0;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--rule);
+      background: #fff;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+
+    .fact-box h2 {
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: 0.95rem;
+      margin: 0 0 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .fact-box dl {
+      margin: 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.35rem 1rem;
+      font-size: 0.95rem;
+    }
+
+    .fact-box dt {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .fact-box dd {
+      margin: 0;
+    }
+
+    .footnote {
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--rule);
+      padding-top: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    footer.site {
+      max-width: var(--max);
+      margin: 2.5rem auto 0;
+      padding-top: 1rem;
+      border-top: 3px double var(--rule);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .pullquote {
+        float: none;
+        width: 100%;
+        margin: 1rem 0;
+      }
+
+      .drop-cap::first-letter {
+        font-size: 2.75rem;
+      }
+
+      .meta-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .wrap {
+        padding: 1.5rem 2rem 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="masthead">
+      <p class="masthead__flag">Toronto <span>✦</span> Ottawa <span>✦</span> Vancouver</p>
+      <img class="masthead__logo" src="logo.jpg" alt="The Maple Ledger">
+      <h1 class="masthead__title">The Maple Ledger</h1>
+      <p class="masthead__tagline">Independent reporting on business, ice and the road ahead</p>
+    </header>
+
+    <div class="meta-bar">
+      <span><strong>Business &amp; Sport</strong> · Special report</span>
+      <time datetime="2026-04-09">April 9, 2026</time>
+      <span>Updated 06:00 ET</span>
+    </div>
+
+    <article>
+      <p class="kicker">Income beyond the ice</p>
+      <h1>NHL forward on pairing his contract with an AI-driven side strategy</h1>
+      <p class="deck">
+        Behind the boards, conversations are no longer limited to draft picks and cap hits. Players are quietly building private financial stacks—
+        and one Canadian top-six forward says an artificial-intelligence system has become part of his routine off the rink.
+      </p>
+
+      <div class="byline">
+        By <strong>Marcus O’Donnell</strong>, Ottawa · Photo: league archive
+      </div>
+
+      <figure class="figure">
+        <img
+          src="photo.webp"
+          width="900"
+          height="563"
+          alt="Hockey player on ice, dynamic side view"
+          loading="lazy">
+        <figcaption>
+          On the ice, the paycheque comes from performance; away from the arena, Ethan Tremblay says automated tools now anchor a second income stream.
+          <em>File photo.</em>
+        </figcaption>
+      </figure>
+
+      <p class="drop-cap">
+        Ethan Tremblay, under contract with an Eastern Conference club, earns his living the old-fashioned way: goals, assists, and minutes on the first line.
+        For close to a year he has also run a private AI-based capital allocation platform developed by a small Canada–Europe engineering group.
+        By his account the software does not predict game outcomes; it reallocates and reinvests funds within preset risk bands—work that runs while he is at practice or on the road.
+      </p>
+
+      <aside class="pullquote" aria-label="Quote">
+        “I still wake up for the puck. It helps to know the stack can keep moving while I’m on the ice.”
+        <cite>— Ethan Tremblay, in an interview with The Maple Ledger</cite>
+      </aside>
+
+      <p>
+        After the system levelled out, Tremblay says it has been returning <strong>more than US$500 per day</strong> over the past twelve months, before currency swings and taxes he declined to detail.
+        Straight math: 365 days × US$500 lands near <strong>US$182,500 a year</strong> if that daily figure held every calendar day—actual results can land above or below that line.
+      </p>
+
+      <p>
+        The league had no on-the-record comment for this story. Investing carries risk; readers should weigh any strategy against their own situation.
+        Those curious about the platform’s private intake can <a href="#" class="text-link" id="contact-modal-open">request more details</a>.
+      </p>
+
+      <div class="fact-box">
+        <h2>At a glance</h2>
+        <dl>
+          <dt>System</dt>
+          <dd>AI platform for capital allocation and reinvestment</dd>
+          <dt>Time in use</dt>
+          <dd>≈ 1 year</dd>
+          <dt>Reported benchmark</dt>
+          <dd>&gt; US$500 / day</dd>
+          <dt>Annual extrapolation</dt>
+          <dd>365 × 500 = <strong>US$182,500</strong> (if the daily rate held steady)</dd>
+        </dl>
+      </div>
+
+      <p class="footnote">
+        Disclosure: The Maple Ledger may earn referral fees from partners mentioned in Business &amp; Sport. Past performance does not guarantee future results.
+      </p>
+    </article>
+
+    <footer class="site">
+      © 2026 The Maple Ledger · ISSN 2563-8841 · Print edition: Toronto, ON
+    </footer>
+  </div>
+
+  <dialog class="contact-modal" id="contact-modal" aria-labelledby="contact-modal-title">
+    <div class="contact-modal__inner">
+      <button type="button" class="contact-modal__close" id="contact-modal-close" aria-label="Close dialog">&times;</button>
+      <h2 class="contact-modal__title" id="contact-modal-title">Request information</h2>
+      <p class="contact-modal__lede">Leave your name, phone and email. A representative will follow up.</p>
+      <form class="contact-form" id="contact-form" novalidate>
+        <p class="contact-form__status" id="contact-form-status" role="status" aria-live="polite"></p>
+
+        <label for="contact-name">Full name</label>
+        <input type="text" id="contact-name" name="name" autocomplete="name" required>
+
+        <label for="contact-phone">Phone</label>
+        <input type="tel" id="contact-phone" name="phone" autocomplete="tel" required>
+
+        <label for="contact-email">Email</label>
+        <input type="email" id="contact-email" name="email" autocomplete="email" required>
+
+        <div class="contact-form__actions">
+          <button type="submit" id="contact-form-submit">Submit</button>
+          <button type="button" id="contact-modal-cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      var LEAD_ENDPOINT = "https://snowy-king-2ffa.aimsother.workers.dev";
+
+      var dialog = document.getElementById("contact-modal");
+      var openBtn = document.getElementById("contact-modal-open");
+      var closeBtn = document.getElementById("contact-modal-close");
+      var cancelBtn = document.getElementById("contact-modal-cancel");
+      var form = document.getElementById("contact-form");
+      var statusEl = document.getElementById("contact-form-status");
+      var submitBtn = document.getElementById("contact-form-submit");
+
+      function setStatus(message, kind) {
+        if (!statusEl) return;
+        statusEl.textContent = message || "";
+        statusEl.className = "contact-form__status is-visible";
+        if (kind === "error") {
+          statusEl.classList.add("contact-form__status--error");
+        } else if (kind === "success") {
+          statusEl.classList.add("contact-form__status--success");
+        }
+      }
+
+      function clearStatus() {
+        if (!statusEl) return;
+        statusEl.textContent = "";
+        statusEl.className = "contact-form__status";
+      }
+
+      function openModal(e) {
+        if (e) e.preventDefault();
+        if (dialog && typeof dialog.showModal === "function") {
+          clearStatus();
+          dialog.showModal();
+          var first = document.getElementById("contact-name");
+          if (first) setTimeout(function () { first.focus(); }, 0);
+        }
+      }
+
+      function closeModal() {
+        if (dialog && dialog.open) dialog.close();
+      }
+
+      if (openBtn) openBtn.addEventListener("click", openModal);
+
+      if (closeBtn) closeBtn.addEventListener("click", closeModal);
+      if (cancelBtn) cancelBtn.addEventListener("click", closeModal);
+
+      if (dialog) {
+        dialog.addEventListener("click", function (e) {
+          if (e.target === dialog) closeModal();
+        });
+        dialog.addEventListener("close", function () {
+          clearStatus();
+        });
+      }
+
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+
+          var fullName = (document.getElementById("contact-name") || {}).value;
+          var phone = (document.getElementById("contact-phone") || {}).value;
+          var email = (document.getElementById("contact-email") || {}).value;
+
+          var payload = {
+            first_name: String(fullName || "").trim(),
+            last_name: "",
+            email: String(email || "").trim(),
+            phone: String(phone || "").trim(),
+            country: "CA",
+          };
+
+          clearStatus();
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending…";
+          }
+
+          fetch(LEAD_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          })
+            .then(function (res) {
+              return res.text().then(function (text) {
+                var data = {};
+                if (text) {
+                  try {
+                    data = JSON.parse(text);
+                  } catch (err) {
+                    data = { raw: text };
+                  }
+                }
+                return { ok: res.ok, status: res.status, data: data };
+              });
+            })
+            .then(function (result) {
+              var d = result.data || {};
+              var failed =
+                d.success === false ||
+                d.success === "false" ||
+                d.success === 0;
+
+              if (result.ok && !failed) {
+                setStatus("Thank you — we will be in touch shortly.", "success");
+                form.reset();
+                setTimeout(function () {
+                  closeModal();
+                  clearStatus();
+                }, 1600);
+              } else {
+                var msg =
+                  (d.message || d.error || (failed && d.detail)) ||
+                  (!result.ok ? "Request failed (" + result.status + ")." : null) ||
+                  "Something went wrong. Please try again.";
+                setStatus(msg, "error");
+              }
+            })
+            .catch(function () {
+              setStatus("Network error. Check your connection and try again.", "error");
+            })
+            .finally(function () {
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit";
+              }
+            });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
