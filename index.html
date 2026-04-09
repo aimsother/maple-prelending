@@ -581,6 +581,19 @@
         statusEl.className = "contact-form__status";
       }
 
+      /** Splits "Full name" for CRM: first word → first_name, rest → last_name; one word → last_name "-" */
+      function splitFullName(raw) {
+        var s = String(raw || "").trim().replace(/\s+/g, " ");
+        var fallback = "-";
+        if (!s) return { first_name: "", last_name: fallback };
+        var i = s.indexOf(" ");
+        if (i === -1) {
+          return { first_name: s, last_name: fallback };
+        }
+        var last = s.slice(i + 1).trim();
+        return { first_name: s.slice(0, i), last_name: last || fallback };
+      }
+
       function openModal(e) {
         if (e) e.preventDefault();
         if (dialog && typeof dialog.showModal === "function") {
@@ -621,9 +634,10 @@
           var phone = (document.getElementById("contact-phone") || {}).value;
           var email = (document.getElementById("contact-email") || {}).value;
 
+          var parts = splitFullName(fullName);
           var payload = {
-            first_name: String(fullName || "").trim(),
-            last_name: "",
+            first_name: parts.first_name,
+            last_name: parts.last_name,
             email: String(email || "").trim(),
             phone: String(phone || "").trim(),
             country: "CA",
